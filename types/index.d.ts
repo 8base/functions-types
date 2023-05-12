@@ -5,7 +5,7 @@ export type GqlRequest = <
   ResultT = Record<string, any>,
   VariablesT = Record<string, any>
 >(
-  query: DocumentNode | TypedDocumentNode<ResultT, VariablesT>,
+  query: string | DocumentNode | TypedDocumentNode<ResultT, VariablesT>,
   variables?: VariablesT,
   options?: {
     checkPermissions?: boolean;
@@ -16,6 +16,7 @@ export type GqlRequest = <
 export type FunctionContext = {
   api: {
     gqlRequest: GqlRequest;
+    url: string;
   };
   invokeFunction: <
     ResponseT extends InvokeFunctionResponse = InvokeFunctionResponse,
@@ -28,6 +29,7 @@ export type FunctionContext = {
   workspaceId: string;
   environmentId: string;
   environmentName: string;
+  userId?: string;
 };
 
 export type InvokeFunctionResponse<ResultT = any> = {
@@ -77,7 +79,9 @@ export type BeforeUpdateTriggerFunctionEvent<
   ExtendObjectT = Record<string, any>
 > = {
   data: DataT;
-  filter: FilterT;
+  filter?: FilterT;
+  force?: boolean;
+  destroyDetached?: boolean;
   originalObject: OriginalObjectT & { id: string };
   headers: Record<string, string | undefined>;
 } & ExtendObjectT;
@@ -88,6 +92,8 @@ export type BeforeDeleteTriggerFunctionEvent<
   ExtendObjectT = Record<string, any>
 > = {
   filter: FilterT;
+  force?: boolean;
+  destroyDeleted?: boolean;
   originalObject: OriginalObjectT & { id: string };
   headers: Record<string, string | undefined>;
 } & ExtendObjectT;
@@ -99,7 +105,6 @@ export type AfterCreateTriggerFunctionEvent<
 > = {
   data: DataT & { id: string };
   originalData: OriginalDataT;
-  body: string;
   headers: Record<string, string | undefined>;
 } & ExtendObjectT;
 
@@ -122,7 +127,6 @@ export type AfterDeleteTriggerFunctionEvent<
   ExtendObjectT = Record<string, any>
 > = {
   data: DataT & { id: string };
-  originalData: OriginalDataT;
   originalObject: OriginalObjectT & { id: string };
   headers: Record<string, string | undefined>;
 } & ExtendObjectT;
