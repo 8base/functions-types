@@ -61,9 +61,6 @@ export type FunctionResponseObject<
   errors?: ErrorT[];
 };
 
-export type TriggerResponse<DataT = Record<string, any>> =
-  FunctionResponseObject<DataT>;
-
 export type BeforeCreateTriggerFunctionEvent<
   DataT = Record<string, any>,
   ExtendObjectT = Record<string, any>
