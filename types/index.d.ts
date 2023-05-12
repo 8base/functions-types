@@ -133,5 +133,6 @@ export type AfterDeleteTriggerFunctionEvent<
 
 export type WebhookResponse = {
   statusCode: number;
+  headers?: Record<string, string | undefined>;
   body?: string;
 };
