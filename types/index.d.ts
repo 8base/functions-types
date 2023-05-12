@@ -74,8 +74,8 @@ export type BeforeCreateTriggerFunctionEvent<
 
 export type BeforeUpdateTriggerFunctionEvent<
   DataT = Record<string, any>,
-  FilterT = Record<string, any>,
   OriginalObjectT = Record<string, any>,
+  FilterT = Record<string, any>,
   ExtendObjectT = Record<string, any>
 > = {
   data: DataT;
@@ -87,8 +87,8 @@ export type BeforeUpdateTriggerFunctionEvent<
 } & ExtendObjectT;
 
 export type BeforeDeleteTriggerFunctionEvent<
-  FilterT = Record<string, any>,
   OriginalObjectT = Record<string, any>,
+  FilterT = Record<string, any>,
   ExtendObjectT = Record<string, any>
 > = {
   filter: FilterT;
