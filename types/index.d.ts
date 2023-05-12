@@ -131,6 +131,12 @@ export type AfterDeleteTriggerFunctionEvent<
   headers: Record<string, string | undefined>;
 } & ExtendObjectT;
 
+export type WebhookFunctionEvent<T extends string = string> = {
+  body: string;
+  headers: Record<string, string | undefined>;
+  pathParameters?: Record<T, string | undefined>;
+};
+
 export type WebhookResponse = {
   statusCode: number;
   headers?: Record<string, string | undefined>;
