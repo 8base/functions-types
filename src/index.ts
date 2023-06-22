@@ -52,8 +52,12 @@ export type FunctionResponseObject<DataT = AnyObject, ErrorT = AnyObject> = {
   errors?: ErrorT[];
 };
 
-export type FunctionResponseObjectWithoutErrors<DataT = AnyObject> = {
+export type FunctionDataResponseObject<DataT = AnyObject> = {
   data: DataT;
+};
+
+export type FunctionErrorResponseObject<ErrorT = AnyObject> = {
+  errors: ErrorT[];
 };
 
 export type ResolverFunctionEvent<DataT = AnyObject> = {
@@ -117,7 +121,7 @@ export type BeforeDeleteTriggerFunctionEvent<
 export type BeforeDeleteTriggerResponse<
   DataT = AnyObject,
   ErrorT = AnyObject
-> = Promise<FunctionResponseObject<DataT, ErrorT> | void>;
+> = Promise<FunctionErrorResponseObject<ErrorT> | void>;
 
 export type AfterCreateTriggerFunctionEvent<
   DataT = AnyObject,
@@ -130,7 +134,7 @@ export type AfterCreateTriggerFunctionEvent<
 } & ExtendObjectT;
 
 export type AfterCreateTriggerResponse<DataT = AnyObject> =
-  Promise<FunctionResponseObjectWithoutErrors<DataT> | void>;
+  Promise<FunctionDataResponseObject<DataT> | void>;
 
 export type AfterUpdateTriggerFunctionEvent<
   DataT = AnyObject,
@@ -145,7 +149,7 @@ export type AfterUpdateTriggerFunctionEvent<
 } & ExtendObjectT;
 
 export type AfterUpdateTriggerResponse<DataT = AnyObject> =
-  Promise<FunctionResponseObjectWithoutErrors<DataT> | void>;
+  Promise<FunctionDataResponseObject<DataT> | void>;
 
 export type AfterDeleteTriggerFunctionEvent<
   DataT = AnyObject,
@@ -210,12 +214,11 @@ export type BeforeUpdateTriggerFunction<
 
 export type BeforeDeleteTriggerFunction<
   EventOriginalObject = AnyObject,
-  ResultData = AnyObject,
   ResultError = AnyObject
 > = (
   event: BeforeDeleteTriggerFunctionEvent<EventOriginalObject>,
   ctx: FunctionContext
-) => BeforeDeleteTriggerResponse<ResultData, ResultError>;
+) => BeforeDeleteTriggerResponse<ResultError>;
 
 export type AfterCreateTriggerFunction<
   EventData = AnyObject,
